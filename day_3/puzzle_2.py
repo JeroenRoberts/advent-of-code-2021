@@ -13,8 +13,8 @@ def calculate_counts(array):
 def convert_binary_array_to_int(array):
     return array.dot(2**np.arange(array.size)[::-1])
 
-def find(data, max_or_min, number_to_keep_if_equal):
-    column = data[:, k]
+def find(data, max_or_min, number_to_keep_if_equal, column_):
+    column = data[:, column_]
     counts, equal = calculate_counts(column)
     keep = max_or_min(counts)
     if equal == True:
@@ -32,16 +32,37 @@ if __name__ == "__main__":
     file = "small_input.txt"
     # file = "input.txt"
     data = np.genfromtxt(file, delimiter=1, dtype=int)
-    data_oxygen = data
-    data_co2 = data
+    data_oxygen = data.copy()
+    data_co2 = data.copy()
     gamma = np.zeros(data.shape[1], dtype=int)
     epsilon = np.zeros(data.shape[1], dtype=int)
-    for k in range(data.shape[1]):
-        print(f'{k=}')
-        data_oxygen = find(data_oxygen, lambda c: c.argmax(), 1)
-        data_co2 = find(data_co2, lambda c: c.argmin(), 0)
+    column = 0
+    for column in range(data.shape[1]):
+        data_oxygen = find(data_oxygen, lambda c: c.argmax(), 1, column)
+        if data_oxygen.shape[0] == 1: #one number left
+            break
         # print(data_oxygen)
-        print(data_co2)
+    oxygen = data_oxygen[0, :]
+
+    print(data_co2)
+    column = 0
+    for column in range(data.shape[1]):
+        data_co2 = find(data_co2, lambda c: c.argmin(), 0, column)
+        if data_co2.shape[0] == 1: #one number left
+            break
+        # print(data_co2)
+    co2 = data_co2[0, :]
+
+    print(oxygen)
+    print(co2)
+
+
+    # for k in range(data.shape[1]):
+    #     # print(f'{k=}')
+    #     data_oxygen = find(data_oxygen, lambda c: c.argmax(), 1)
+    #     data_co2 = find(data_co2, lambda c: c.argmin(), 0)
+        # print(data_oxygen)
+        # print(data_co2)
         # column = data[:, k]
         # counts, equal = calculate_counts(column)
         # gamma[k] = counts.argmax()
