@@ -59,8 +59,7 @@ def print_row_or_col(matrix, row_or_col, index):
     elif row_or_col == 'column':
         print(matrix[:, index].T)
 
-def do_draws(draws, boards):
-    score_cards = load_score_card(boards)
+def do_draws(draws, boards, score_cards):
     for draw in draws:
         for board, score_card in zip(boards, score_cards):
             if draw in board:
@@ -74,7 +73,7 @@ def do_draws(draws, boards):
                 print_row_or_col(score_card, row_or_col, location)
                 print_row_or_col(board, row_or_col, location)
                 print("winner after drawing: ", draw)
-                return draw, board, score_card
+                return draw, board, score_card, draws, boards, score_cards
     # print(score_cards[-1])
     assert False, "No winner!"
 
