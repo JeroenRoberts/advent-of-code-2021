@@ -12,7 +12,7 @@ number_of_letters['8'] = 7 #Unique
 number_of_letters['9'] = 6
 
 
-def get_possible_digits_based_on_length(number_of_letters):
+def get_possible_digits_based_on_length():
     possible_digits_based_on_length = {}
     for i in range(10):
         possible_digits_based_on_length[i] = []
