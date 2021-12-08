@@ -20,13 +20,10 @@ letters_used[8] = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
 letters_used[9] = ['a', 'b', 'c', 'd', 'f', 'g']
 
 
-def parse_file(file):
-    with open(file, 'r') as f:
-        for line in f.readlines():
-            signal_patterns, output = [x.split(' ') for x in line.rstrip().split(' | ')]
+def parse_line(line):
+    signal_patterns, output = [x.split(' ') for x in line.rstrip().split(' | ')]
     return signal_patterns, output
 
-interpreted_words = {}
 
 def parse(word):
     symbols = [x for x in word]
@@ -89,7 +86,7 @@ def check_if_dictionary_is_consistent(interpreted_words):
     for digit, word in interpreted_words.items():
         assert len(word) == len(letters_used[digit]), f"digit {digit} has word with wrong amount of letters"
     for word in interpreted_words.values():
-        assert len(set(word)) == len(word), "errors: duplicate letters"
+        assert len(set(word)) == len(word), f"errors: duplicate letters: {word}"
 
 # def sum_output(interpreted_words):
 def translate_word(dictionary, word):
@@ -114,45 +111,57 @@ def find_digit_based_on_translated_symbols(symbols, interpreted_words):
 
 if __name__ == "__main__":
 
-    file = 'smaller_input.txt'
-    words, out = parse_file(file)
+    file = 'small_input.txt'
+    sum = 0
 
-    interpreted_words = find_words_unique_length(words)
-    print(interpreted_words)
-    two_or_five, two_or_five_, interpreted_words[3] = find_2_5_3(words)
-    distuinguish_two_and_five(interpreted_words, two_or_five, two_or_five_)
-    dictionary = {}
-    dictionary['f'] = [x for x in interpreted_words[5] if x in interpreted_words[1]][0]
-    dictionary['c'] = [x for x in interpreted_words[2] if x in interpreted_words[1]][0]
-    dictionary['a'] = [x for x in interpreted_words[7] if x not in interpreted_words[1]][0]
+    with open(file, 'r') as f:
+        for line in f.readlines():
+            words, out = parse_line(line)
 
-    dictionary['d'] = [x for x in interpreted_words[4] if x not in interpreted_words[1] and x in interpreted_words[2]][0]
-    dictionary['b'] = [x for x in interpreted_words[4] if x not in interpreted_words[2]][0]
-    dictionary['e'] = [x for x in interpreted_words[2] if x not in interpreted_words[3]][0]
-    all_letters= ['a', 'b', 'c', 'd', 'e', 'f', 'g']
-    dictionary['g'] = [x for x in all_letters if x not in list(dictionary.values())][0]
-    print(f'{dictionary = }')
+            interpreted_words = {}
+            interpreted_words = find_words_unique_length(words)
+            print(interpreted_words)
+            two_or_five, two_or_five_, interpreted_words[3] = find_2_5_3(words)
+            distuinguish_two_and_five(interpreted_words, two_or_five, two_or_five_)
+            dictionary = {}
+            dictionary['f'] = [x for x in interpreted_words[5] if x in interpreted_words[1]][0]
+            dictionary['c'] = [x for x in interpreted_words[2] if x in interpreted_words[1]][0]
+            dictionary['a'] = [x for x in interpreted_words[7] if x not in interpreted_words[1]][0]
 
-    for i in [0, 6, 9]:
-        interpreted_words[i] = [dictionary[letter] for letter in letters_used[i]]
-    print(interpreted_words)
-    check_if_dictionary_is_consistent(interpreted_words)
+            dictionary['d'] = [x for x in interpreted_words[4] if x not in interpreted_words[1] and x in interpreted_words[2]][0]
+            dictionary['b'] = [x for x in interpreted_words[4] if x not in interpreted_words[2] + interpreted_words[3]][0]
+            dictionary['e'] = [x for x in interpreted_words[2] if x not in interpreted_words[3]][0]
+            all_letters= ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+            dictionary['g'] = [x for x in all_letters if x not in list(dictionary.values())][0]
+            print(f'{dictionary = }')
 
-    for word in out:
-        # translated = translate_word(dictionary, word)
-        d = find_digit_based_on_translated_symbols(parse(word), interpreted_words)
-        print(word, d)
-    # values = {}
-    # for digit, letters in interpreted_words.items():
-    #     word = "".join(letters)
-    #     values[word] = digit
-    # print(values)
+            for i in [0, 6, 9]:
+                interpreted_words[i] = [dictionary[letter] for letter in letters_used[i]]
+            # print(interpreted_words)
+            check_if_dictionary_is_consistent(interpreted_words)
+
+            digits = []
+            for word in out:
+                # translated = translate_word(dictionary, word)
+                d = find_digit_based_on_translated_symbols(parse(word), interpreted_words)
+                digits.append(str(d))
+            print(digits)
+            number = int(''.join(digits))
+            sum += number
+    answer = sum
+    print(f'{answer = }')
+                # print(word, d)
+            # values = {}
+            # for digit, letters in interpreted_words.items():
+            #     word = "".join(letters)
+            #     values[word] = digit
+            # print(values)
 
 
-    # print(words_of_length_5)
-    # print(lengths_of_digits)
-    # print(interpreted_words)
+            # print(words_of_length_5)
+            # print(lengths_of_digits)
+            # print(interpreted_words)
 
-    # print(words)
-    # for word in words:
-    #     print(word)
+            # print(words)
+            # for word in words:
+            #     print(word)
