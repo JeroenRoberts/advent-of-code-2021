@@ -111,7 +111,7 @@ def find_digit_based_on_translated_symbols(symbols, interpreted_words):
 
 if __name__ == "__main__":
 
-    file = 'small_input.txt'
+    file = 'input.txt'
     sum = 0
 
     with open(file, 'r') as f:
@@ -150,18 +150,3 @@ if __name__ == "__main__":
             sum += number
     answer = sum
     print(f'{answer = }')
-                # print(word, d)
-            # values = {}
-            # for digit, letters in interpreted_words.items():
-            #     word = "".join(letters)
-            #     values[word] = digit
-            # print(values)
-
-
-            # print(words_of_length_5)
-            # print(lengths_of_digits)
-            # print(interpreted_words)
-
-            # print(words)
-            # for word in words:
-            #     print(word)
