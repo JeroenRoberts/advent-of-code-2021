@@ -11,19 +11,25 @@ number_of_letters['7'] = 3 #Unique
 number_of_letters['8'] = 7 #Unique
 number_of_letters['9'] = 6
 
-possible_digits_based_on_length = {}
 
 def get_possible_digits_based_on_length(number_of_letters):
+    possible_digits_based_on_length = {}
+    for i in range(10):
+        possible_digits_based_on_length[i] = []
+
     for k, v in number_of_letters.items():
         if v not in possible_digits_based_on_length:
             possible_digits_based_on_length[v] = []
         possible_digits_based_on_length[v].append(k)
+    # print(possible_digits_based_on_length)
+    return possible_digits_based_on_length
 
-unique_digit_based_on_length = {}
 def get_unique_digit_based_on_length(possible_digits_based_on_length):
+    unique_digit_based_on_length = {}
     for k, v in possible_digits_based_on_length.items():
         if len(v) == 1:
             unique_digit_based_on_length[k] = int(v[0])
+    return unique_digit_based_on_length
 
 if __name__ == "__main__":
     file = 'small_input.txt'
