@@ -24,7 +24,7 @@ def get_local_minimum_matrix(matrix):
 
 
 if __name__ == "__main__":
-    file = 'small_input.txt'
+    file = 'input.txt'
     heights = np.genfromtxt(file, delimiter=1, dtype=int)
     min = get_local_minimum_matrix(heights)
     # print(heights)
