@@ -1,11 +1,6 @@
 import numpy as np
 
-
-if __name__ == "__main__":
-    file = 'small_input.txt'
-    heights = np.genfromtxt(file, delimiter=1, dtype=int)
-    min_of_neighbours = np.zeros(heights.shape)
-
+def minimum_single_row(heights):
     first_row = heights[0, :]
     first_row_shift_right = np.roll(heights[0, :], 1)
     first_row_shift_right[0] = 99999 #invalid neighbour (no pbc)
@@ -17,6 +12,27 @@ if __name__ == "__main__":
     minimum = np.minimum(first_row_shift_left, first_row_shift_right)
     print(first_row < minimum)
 
+if __name__ == "__main__":
+    file = 'small_input.txt'
+    heights = np.genfromtxt(file, delimiter=1, dtype=int)
+    min_of_neighbours = np.zeros(heights.shape)
+
+    shift_right = np.roll(heights, 1)
+    shift_right[:, 0] = 99999 #invalid neighbour (no pbc)
+
+
+    shift_left = np.roll(heights, -1)
+    shift_left[:, -1] = 99999 #invalid neighbour (no pbc)
+
+
+    shift_up = np.roll(heights, -1, axis)
+    shift_up[:, -1] = 99999 #invalid neighbour (no pbc)
+    print(heights)
+    print(shift_right)
+    print(shift_left)
+
+
+    
 
     # print(heights.shape)
     # for k in range(heights.shape[0]):
