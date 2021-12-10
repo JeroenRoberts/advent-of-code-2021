@@ -9,7 +9,7 @@ matches['('] = ')'
 points = {')': 3, ']': 57, '}': 1197, '>': 25137}
 
 def get_points_first_illegal_character(line):
-    print(line)
+    # print(line)
     left_symbols_to_match = []
     # n_chunks = [0]
     for k, x in enumerate(line):
@@ -29,7 +29,8 @@ def get_points_first_illegal_character(line):
 
 
 if __name__ == "__main__":
-    file = 'small_input.txt'
+    # file = 'small_input.txt'
+    file = 'input.txt'
     with open(file, 'r') as f:
         lines = f.readlines()
     total_points = 0
