@@ -36,11 +36,11 @@ def get_points_first_illegal_character(line):
 
 
 if __name__ == "__main__":
-    file = 'small_input.txt'
-    # file = 'input.txt'
+    # file = 'small_input.txt'
+    file = 'input.txt'
     with open(file, 'r') as f:
         lines = f.readlines()
-    total_points = 0
+    scores = []
     for line in lines:
         symbols_to_add = get_points_first_illegal_character(line.rstrip())
         line_points = 0
@@ -48,8 +48,11 @@ if __name__ == "__main__":
             for x in symbols_to_add:
                 line_points *= 5
                 line_points += points[x]
-        print(f' {line_points = }')
-    print(f'{ total_points = }')
+        # print(f' {line_points = }')
+            scores.append(line_points)
+    print(scores)
+    answer = sorted(scores)[len(scores)//2]
+    print(f'{ answer = }')
 
 
 
