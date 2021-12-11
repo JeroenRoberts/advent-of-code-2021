@@ -39,12 +39,15 @@ def perform_step(data: np.array):
 
 
 if __name__ == "__main__":
-    file = 'smaller_input.txt'
+    # file = 'smaller_input.txt'
+    file = 'small_input.txt'
     data = np.genfromtxt(file, delimiter=1, dtype=int)
     print(data)
-    for step in range(3):
-        perform_step(data)
+    for step in range(10):
+        print(f'\n\n{step = }')
         print(data)
+        perform_step(data)
+    print(data)
     # data[0, 0] = 9
     # for i in range(data.shape[0]):
     #     for j in range(data.shape[1]):
