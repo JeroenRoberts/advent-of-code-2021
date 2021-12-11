@@ -12,7 +12,7 @@ def increment_neighbours(data: np.array, i: int, j: int) -> None:
                     # print(error)
                     pass
 
-def perform_step(data: np.array):
+def perform_step(data: np.array) -> int:
     #1. Increment all
     data += 1
 
@@ -27,15 +27,18 @@ def perform_step(data: np.array):
 
     #3. octopus that flashed gets set to 0
     data[flashed] = 0
+    return flashed.sum()
 
 
 if __name__ == "__main__":
     # file = 'smaller_input.txt'
-    file = 'small_input.txt'
+    # file = 'small_input.txt'
+    file = 'input.txt'
     data = np.genfromtxt(file, delimiter=1, dtype=int)
     print(data)
-    for step in range(10):
-        print(f'\n\n{step = }')
-        print(data)
-        perform_step(data)
-    print(data)
+    total_flashes = 0
+    for step in range(100):
+        # print(f'\n\n{step = }')
+        # print(data)
+        total_flashes += perform_step(data)
+    print(total_flashes)
