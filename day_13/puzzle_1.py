@@ -4,7 +4,7 @@ def parse_folds(fold_line):
     folds = {}
     for line in fold_line:
         k, v = (line.split(' ')[-1]).split('=')
-        folds[k] = v
+        folds[k] = int(v)
     return folds
 
 def parse_input(file):
@@ -25,13 +25,21 @@ def perform_fold(coords, fold_axis, z):
         if fold_axis == 'x':
             distance = coords[i, 0] - z
             if distance >= 0:
-                print(f'folding {coords[i,0]} about {z} into {z-distance}')
+                print(fold_axis + f' folding {coords[i,0]} about {z} into {z-distance}')
                 coords[i, 0] = z - distance
+        elif fold_axis == 'y':
+            distance = coords[i, 1] - z
+            if distance >= 0:
+                print(fold_axis + f' folding {coords[i,1]} about {z} into {z-distance}')
+                coords[i, 1] = z - distance
+
 
 if __name__ == "__main__":
     file = 'small_input.txt'
     coords, folds = parse_input(file)
     print(coords)
-    for fold in folds.item():
-        perform_fold(coords, 'x', 5)
-        print(coords)
+    for fold, z in folds.items():
+        perform_fold(coords, fold, z)
+        dots = set([tuple(coord) for coord in coords])
+        print(len(dots))
+
