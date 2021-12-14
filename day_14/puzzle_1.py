@@ -28,8 +28,8 @@ def print_occurences(polymer):
 
 
 if __name__ == "__main__":
-    # file = 'input.txt'
-    file = 'small_input.txt'
+    file = 'input.txt'
+    # file = 'small_input.txt'
     polymer_template, rules = read_file(file)
     polymer=polymer_template
     for step in range(10):
