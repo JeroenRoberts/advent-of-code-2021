@@ -35,7 +35,7 @@ def perform_inserts(N_pairs, rules):
     for k, N in N_pairs.items():
         assert(N >= 0)
 
-def print_occurences(N_pairs):
+def print_occurences(N_pairs, boundary_letters):
     counts = {}
     for pair, count in N_pairs.items():
         for letter in pair:
@@ -43,7 +43,6 @@ def print_occurences(N_pairs):
                 counts[letter] = 0
             counts[letter] += count
 
-    boundary_letters = ['N', 'B']
     for l in boundary_letters:
         counts[l] += 1
 
@@ -61,17 +60,18 @@ def print_occurences(N_pairs):
 
 
 if __name__ == "__main__":
-    # file = 'input.txt'
-    file = 'small_input.txt'
+    file = 'input.txt'
+    # file = 'small_input.txt'
     polymer_template, rules = read_file(file)
     polymer=polymer_template
+    boundary_letters = [polymer[0], polymer[-1]]
     N_pairs = calculate_N_pairs(polymer)
-    for step in range(10):
+    for step in range(40):
         # print(step, ''.join(polymer))
         perform_inserts(N_pairs, rules)
         print(f'step={step+1}')
-        print_occurences(N_pairs)
+        answer = print_occurences(N_pairs, boundary_letters)
         print(f'\n')
         # print(N_pairs)
-    # print(f'{answer = }')
+    print(f'{answer = }')
     # print(4, ''.join(polymer))
