@@ -1,3 +1,4 @@
+from collections import Counter
 def read_file(file):
     with open(file, 'r') as f:
         lines = [line.rstrip() for line in f.readlines()]
@@ -16,16 +17,25 @@ def perform_inserts(polymer, rules):
             polymer.insert(k+ n_inserts + 1, rules[p])
             n_inserts += 1
 
+def print_occurences(polymer):
+    print(f'{len(polymer)}')
+    counts = Counter(polymer)
+    print(counts)
+    maximum = max(counts.values())
+    minimum = min(counts.values())
+    return maximum - minimum
+
 
 
 if __name__ == "__main__":
     # file = 'input.txt'
     file = 'small_input.txt'
     polymer_template, rules = read_file(file)
-    # print(polymer_template)
-    # print(rules)
     polymer=polymer_template
-    for step in range(4):
-        print(step, ''.join(polymer))
+    for step in range(10):
+        # print(step, ''.join(polymer))
+        print(f'{step+1 =}')
         perform_inserts(polymer, rules)
-    print(4, ''.join(polymer))
+        answer = print_occurences(polymer)
+    print(f'{answer = }')
+    # print(4, ''.join(polymer))
